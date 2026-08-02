@@ -3,8 +3,6 @@
 ## 📌 Overview
 Campus Bites is a Full Stack Canteen Management System developed using Spring Boot, MySQL, HTML, CSS, and JavaScript. It enables students to place food orders digitally while providing administrators with a dashboard to manage menu items and customer orders.
 
----
-
 ## ✨ Features
 
 ### Customer
@@ -25,7 +23,6 @@ Campus Bites is a Full Stack Canteen Management System developed using Spring Bo
 - Item availability management
 - Order search
 
----
 
 ## 🛠️ Tech Stack
 
@@ -46,7 +43,6 @@ Tools
 - GitHub
 - Spring Tool Suite (STS)
 
----
 
 ## 🚀 Future Enhancements
 
@@ -55,7 +51,6 @@ Tools
 - Analytics Dashboard
 - Payment Gateway Integration
 
----
 
 ## 👩‍💻 Author
 
