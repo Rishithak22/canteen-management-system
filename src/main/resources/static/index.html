@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Bites — Order from Canteen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="location-row">
+          <span class="location-pin" aria-hidden="true">
+            <i class="fa-solid fa-location-dot"></i>
+          </span>
+          <span class="location-text">Campus Bites</span>
+        </div>
+        <div class="location-sub">
+          Ordering from Counter 3 · Ground Floor Canteen
+        </div>
+        <div class="search-row">
+          <span class="search-icon" aria-hidden="true">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <label for="searchInput" class="sr-only">Search menu</label>
+          <input
+            type="search"
+            id="searchInput"
+            name="searchInput"
+            placeholder="Search for dosa, biryani, coffee..."
+            autocomplete="off"
+          />
+        </div>
+      </header>
+
+      <div class="promo-scroll" role="list" aria-label="Current offers">
+        <div class="promo-card" role="listitem">
+          <div class="pc-title">
+            <i class="fa-solid fa-tags" aria-hidden="true"></i> FLAT ₹20 OFF
+          </div>
+          <div class="pc-sub">On orders above ₹150</div>
+        </div>
+        <div class="promo-card" role="listitem">
+          <div class="pc-title">
+            <i class="fa-solid fa-burger" aria-hidden="true"></i> Combo Deals
+          </div>
+          <div class="pc-sub">Snack + beverage combos now live</div>
+        </div>
+        <div class="promo-card" role="listitem">
+          <div class="pc-title">
+            <i class="fa-solid fa-bolt" aria-hidden="true"></i> Skip the Queue
+          </div>
+          <div class="pc-sub">Order ahead, just walk up &amp; collect</div>
+        </div>
+      </div>
+
+      <nav class="cat-scroll" id="catScroll" aria-label="Menu categories"></nav>
+
+      <main id="menuSections"></main>
+    </div>
+
+    <button class="cart-bar" id="cartBar" type="button" aria-label="View cart">
+      <div class="cart-bar-left">
+        <div class="cart-bar-count" id="cartBarCount">0</div>
+        <div class="cart-bar-text">
+          <div class="items" id="cartBarItems">0 items</div>
+          <div class="price" id="cartBarPrice">₹0</div>
+        </div>
+      </div>
+      <div class="cart-bar-right">
+        <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+        View Cart
+        <i class="fa-solid fa-angle-right" aria-hidden="true"></i>
+      </div>
+    </button>
+
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+    <div
+      class="cart-drawer"
+      id="cartDrawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="drawerTitle"
+    >
+      <div class="drawer-handle"></div>
+      <div class="drawer-head">
+        <div class="drawer-title" id="drawerTitle">Your Cart</div>
+        <button
+          class="drawer-close"
+          id="drawerClose"
+          type="button"
+          aria-label="Close cart"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="drawer-body" id="drawerBody"></div>
+      <div class="drawer-footer">
+        <button
+          class="place-order-btn"
+          id="placeOrderBtn"
+          type="button"
+          disabled
+        >
+          <span>Place Order</span>
+          <span id="placeOrderAmount">₹0</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div
+      class="checkout-backdrop"
+      id="checkoutBackdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="checkoutTitle"
+    >
+      <div class="checkout-card">
+        <!-- Header -->
+        <div class="checkout-header">
+          <div class="checkout-title" id="checkoutTitle">Checkout</div>
+          <div class="checkout-subtitle">
+            Enter your details to place the order
+          </div>
+        </div>
+
+        <!-- Scrollable Body -->
+        <div class="checkout-body">
+          <!-- Customer Name -->
+          <div class="form-group">
+            <label for="customerName">Customer Name</label>
+            <input
+              type="text"
+              id="customerName"
+              name="customerName"
+              placeholder="Enter your name"
+              autocomplete="name"
+            />
+          </div>
+
+          <!-- Mobile -->
+          <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input
+              type="tel"
+              id="mobileNumber"
+              name="mobileNumber"
+              inputmode="numeric"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              placeholder="9876543210"
+              autocomplete="tel"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email (Optional)</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="example@gmail.com"
+              autocomplete="email"
+            />
+          </div>
+
+          <!-- Counter -->
+          <div class="form-group">
+            <label for="pickupLocation">Pickup Counter</label>
+            <select id="pickupLocation" name="pickupLocation">
+              <option value="Counter 1">Counter 1</option>
+              <option value="Counter 2">Counter 2</option>
+              <option value="Counter 3" selected>Counter 3</option>
+            </select>
+          </div>
+
+          <!-- Payment -->
+          <fieldset class="payment-options-fieldset">
+            <legend class="payment-title">Payment Method</legend>
+
+            <div class="payment-options">
+              <label class="payment-option">
+                <input type="radio" name="paymentMode" value="Cash" checked />
+                <i class="fa-solid fa-money-bill-wave" aria-hidden="true"></i>
+                Cash
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMode" value="UPI" />
+                <i class="fa-solid fa-qrcode" aria-hidden="true"></i>
+                UPI
+              </label>
+
+              <label class="payment-option">
+                <input type="radio" name="paymentMode" value="Card" />
+                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                Card
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- QR -->
+          <div id="upiSection" class="upi-section">
+            <img
+              src="/images/qr_code.jpg"
+              class="upi-qr"
+              alt="UPI payment QR code"
+            />
+
+            <h3>
+              <i class="fa-solid fa-qrcode" aria-hidden="true"></i> Scan &amp;
+              Pay
+            </h3>
+
+            <p>Scan using Google Pay, PhonePe, Paytm or any UPI App.</p>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="checkout-footer">
+          <button class="back-cart-btn" id="backCartBtn" type="button">
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            Back to Cart
+          </button>
+
+          <button
+            class="confirm-checkout-btn"
+            id="confirmCheckoutBtn"
+            type="button"
+          >
+            Confirm Order
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal-backdrop"
+      id="modalBackdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="confirmTitle"
+    >
+      <div class="confirm-card">
+        <button
+          class="close-confirmation"
+          id="closeConfirmationBtn"
+          type="button"
+          aria-label="Close confirmation"
+        >
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+
+        <div class="confirm-emoji" aria-hidden="true">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div class="confirm-title" id="confirmTitle">Order Placed!</div>
+
+        <div class="confirm-sub">Head to Counter 3 to collect your order</div>
+
+        <div class="confirm-order-id" id="confirmOrderId">Order #039</div>
+
+        <div class="confirm-amount">
+          Amount paid: <b id="confirmAmount">₹0</b>
+        </div>
+
+        <button class="confirm-btn" id="confirmCloseBtn" type="button">
+          Order Something Else
+        </button>
+      </div>
+    </div>
+    <script src="/js/menu.js"></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Bites | Admin Login</title>
+    <link rel="stylesheet" href="/css/admin_login.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-card">
+        <div class="logo" aria-hidden="true">
+          <i class="fa-solid fa-utensils"></i>
+        </div>
+
+        <h1>Campus Bites</h1>
+        <p>Admin Login Portal</p>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <label for="username">Username</label>
+            <div class="input-box">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Enter Username"
+                autocomplete="username"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="input-box">
+              <i class="fa-solid fa-lock" aria-hidden="true"></i>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter Password"
+                autocomplete="current-password"
+                required
+              />
+              <i
+                class="fa-solid fa-eye toggle-password"
+                id="togglePassword"
+                role="button"
+                tabindex="0"
+                aria-label="Show password"
+              ></i>
+            </div>
+          </div>
+
+          <div class="options">
+            <label>
+              <input type="checkbox" id="rememberMe" />
+              Remember Me
+            </label>
+          </div>
+
+          <button type="submit" class="login-btn">
+            <i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i>
+            Login
+          </button>
+        </form>
+
+        <p class="copyright">© 2026 Campus Bites Admin Panel</p>
+      </div>
+    </div>
+
+    <script src="/js/admin_login.js"></script>
+  </body>
+</html>

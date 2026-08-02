@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Campus Bites Admin</title>
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="admin-container">
+      <nav class="sidebar" aria-label="Admin sections">
+        <h2>
+          <i class="fa-solid fa-utensils" aria-hidden="true"></i>
+          Campus Bites
+        </h2>
+
+        <ul>
+          <li
+            class="active"
+            id="dashboardTab"
+            role="button"
+            tabindex="0"
+            aria-current="page"
+            onclick="showDashboard()"
+          >
+            <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+            Dashboard
+          </li>
+
+          <li id="ordersTab" role="button" tabindex="0" onclick="showOrders()">
+            <i class="fa-solid fa-bag-shopping" aria-hidden="true"></i>
+            Orders
+          </li>
+
+          <li id="menuTab" role="button" tabindex="0" onclick="showMenu()">
+            <i class="fa-solid fa-bowl-food" aria-hidden="true"></i>
+            Menu Management
+          </li>
+        </ul>
+      </nav>
+
+      <main class="content">
+        <!-- ---------- DASHBOARD ---------- -->
+        <section id="dashboardSection">
+          <div class="topbar">
+            <h1>Admin Dashboard</h1>
+            <button class="logout-btn" type="button" onclick="logout()">
+              <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+              Logout
+            </button>
+          </div>
+
+          <div class="cards">
+            <div class="card">
+              <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+              <h2 id="totalOrders">0</h2>
+              <p>Total Orders</p>
+            </div>
+
+            <div class="card">
+              <i class="fa-solid fa-indian-rupee-sign" aria-hidden="true"></i>
+              <h2 id="totalRevenue">₹0</h2>
+              <p>Revenue</p>
+            </div>
+
+            <div class="card">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <h2 id="pendingOrders">0</h2>
+              <p>Pending</p>
+            </div>
+
+            <div class="card">
+              <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+              <h2 id="completedOrders">0</h2>
+              <p>Completed</p>
+            </div>
+          </div>
+
+          <div class="orders-section">
+            <h2>Latest Orders</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ---------- ORDERS ---------- -->
+        <section id="ordersSection" style="display: none">
+          <div class="topbar">
+            <h1>Orders Management</h1>
+          </div>
+
+          <div class="order-filters">
+            <button
+              class="filter-btn active"
+              type="button"
+              onclick="filterOrders('ALL', this)"
+            >
+              All
+            </button>
+            <button
+              class="filter-btn"
+              type="button"
+              onclick="filterOrders('PLACED', this)"
+            >
+              Placed
+            </button>
+            <button
+              class="filter-btn"
+              type="button"
+              onclick="filterOrders('COMPLETED', this)"
+            >
+              Completed
+            </button>
+          </div>
+
+          <div class="orders-section">
+            <label for="searchOrder" class="sr-only">Search orders</label>
+            <input
+              type="search"
+              id="searchOrder"
+              class="search-order"
+              placeholder="Search Orders..."
+            />
+
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Customer</th>
+                  <th>Mobile</th>
+                  <th>Amount</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="allOrdersTable"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ---------- MENU MANAGEMENT ---------- -->
+        <section id="menuSection" style="display: none">
+          <div class="topbar">
+            <h1>Menu Management</h1>
+          </div>
+
+          <div class="menu-section">
+            <div class="menu-header">
+              <h2>Menu Items</h2>
+
+              <div class="menu-actions">
+                <label for="searchMenu" class="sr-only">Search menu</label>
+                <input
+                  type="search"
+                  id="searchMenu"
+                  class="search-order"
+                  placeholder="Search menu..."
+                />
+
+                <button id="addMenuBtn" class="add-btn" type="button">
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  Add Item
+                </button>
+              </div>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Available</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="menuTable"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ---------- ORDER DETAILS MODAL ---------- -->
+    <div
+      class="modal-backdrop"
+      id="orderModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="orderModalTitle"
+    >
+      <div class="order-modal">
+        <div class="modal-header">
+          <h2 id="orderModalTitle">
+            <i class="fa-solid fa-receipt" aria-hidden="true"></i>
+            Order Details
+          </h2>
+          <button
+            id="closeModal"
+            type="button"
+            aria-label="Close order details"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div id="orderDetails"></div>
+      </div>
+    </div>
+
+    <!-- ---------- ADD MENU ITEM MODAL ---------- -->
+    <div
+      class="modal-backdrop"
+      id="menuModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="menuModalTitle"
+    >
+      <div class="order-modal">
+        <div class="modal-header">
+          <h2 id="menuModalTitle">
+            <i class="fa-solid fa-bowl-food" aria-hidden="true"></i>
+            Add Menu Item
+          </h2>
+          <button
+            id="closeMenuModal"
+            type="button"
+            aria-label="Close add menu item"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="menuName">Name</label>
+          <input type="text" id="menuName" />
+        </div>
+
+        <div class="form-group">
+          <label for="menuDescription">Description</label>
+          <textarea id="menuDescription"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="menuCategory">Category</label>
+          <select id="menuCategory">
+            <option value="Breakfast">Breakfast</option>
+            <option value="Meals">Meals</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Beverages">Beverages</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="menuPrice">Price</label>
+          <input type="number" id="menuPrice" min="0" step="0.01" />
+        </div>
+
+        <div class="form-group">
+          <label for="menuImage">Image Name</label>
+          <input type="text" id="menuImage" placeholder="burger.jpg" />
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label><input type="checkbox" id="menuVeg" /> Veg</label>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label
+            ><input type="checkbox" id="menuBestSeller" /> Bestseller</label
+          >
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label
+            ><input type="checkbox" id="menuAvailable" checked />
+            Available</label
+          >
+        </div>
+
+        <button class="add-btn" id="saveMenuBtn" type="button">
+          Save Item
+        </button>
+      </div>
+    </div>
+    <script src="/js/admin.js"></script>
+  </body>
+</html>
